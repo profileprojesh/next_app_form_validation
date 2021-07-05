@@ -22,9 +22,7 @@ function createcsv(data) {
 
         // function to create a csv file if with headers if file does not exist
         function createfirstentry() {
-            console.log("Inside first resolve")
             let final = headers + newline + val + newline;
-            console.log('final value is', final)
             fs.writeFile(filename, final, () => console.log("writen"))
             // users.push(data)
 
@@ -51,7 +49,6 @@ function createcsv(data) {
                         emailvalid = false
                     }
                     if (value.phone === data.phone) {
-                        console.log("phone already exist")
                         phonevalid = false
                     }
                 }).on('end', () => {
@@ -74,6 +71,7 @@ function createcsv(data) {
 }
 
 
+// function for getting all data from csv file
 function parseuserfromcsv(){
     return new Promise((resolve,reject)=>{
         let users = []
@@ -84,8 +82,6 @@ function parseuserfromcsv(){
                 users.push(value)
             }).on("end",()=>{
             resolve(users)
-            console.log("users in backend",users)
-
             })
 
 
@@ -96,9 +92,6 @@ function parseuserfromcsv(){
 
 export default function (req, res) {
     if (req.method == 'POST') {
-        console.log("inside post")
-        const user = req.body.user;
-        console.log(user)
         console.log('Adding user:::', user);
         createcsv(user).then(() => {
             console.log("Pushing users to a array")

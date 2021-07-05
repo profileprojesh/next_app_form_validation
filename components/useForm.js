@@ -30,16 +30,12 @@ function useForm(addError) {
             return true
         }
         else {
-            console.log("Adding errors in isinvalid")
-            // setErrors(addError(values, validbackendemail, validbackendphone))
             return false
         }
     }
 
     const handleInput = (e) => {
         const { name, value } = e.target
-        // console.log("name is", name)
-        // console.log("value is", value)
         setValues({
             ...values,
             [name]: value
@@ -60,7 +56,6 @@ function useForm(addError) {
 
     function checkorCreatenewUser(){
         createUser(values).then((res) => {
-            console.log("The response is ", res)
             if (!res.validemail) {
                 setvalidbackendemail(false)
             }
@@ -68,7 +63,6 @@ function useForm(addError) {
                 setvalidbackendphone(false)
             }
             else{
-                console.log("Redirecting user")
                 router.push('/')
             }
 
@@ -80,21 +74,15 @@ function useForm(addError) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("Inside handle submit")
         setSubmitevent()
         // setissubmitting(true)
         let notvalid = isinvalid()
         resetbackend() // This function is used to reset the backend error to initial state  
-        console.log('issubmitting', issubmitting)
-        console.log('not valid', notvalid)
-        console.log('errors', Object.keys(errors).length)
         if (!notvalid && Object.keys(errors).length === 0 && issubmitting) {
-            console.log("form submitted sucessfully")
             checkorCreatenewUser()
     
         }
         else {
-            console.log("Adding errors in submit")
             setErrors(addError(values, validbackendemail, validbackendphone))
         }
 
@@ -103,10 +91,7 @@ function useForm(addError) {
 
 
     useEffect(() => {
-        console.log('errors', Object.keys(errors).length)
-        console.log('issubmitting', issubmitting)
         if (issubmitting && Object.keys(errors).length === 0) {
-            console.log("form has been submitted")
            checkorCreatenewUser()
             getallusers()
         }
@@ -126,9 +111,6 @@ function useForm(addError) {
 
     function getallusers() {
         getallUser().then(users => {
-            console.log("Inside get all users")
-            console.log("users are", users)
-            console.log("users are length", users.length)
             setUsers(users)
             setNum(users.length)            
         })
@@ -136,7 +118,6 @@ function useForm(addError) {
 
     // Load the users from backend for the first time dom is loaded
     useEffect(()=>{
-        console.log("Geting all users initially")
         getallusers()
     },[])
 
