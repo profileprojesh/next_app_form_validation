@@ -1,9 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Bona+Nova&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Bona Nova', serif;
 }
 
 a {
@@ -14,3 +15,147 @@ a {
 * {
   box-sizing: border-box;
 }
+.container{
+  width: 80%;
+  margin: 2rem auto;
+
+}
+
+
+/* csss for navbar */
+.nav{
+  background-color: coral;
+  height: 4rem;
+}
+
+
+.links{
+  display: flex;
+  margin-top: 0;
+  margin-left: 1.3rem;
+  font-family: 'Bona Nova', serif;
+  color:rgb(15, 117, 206)
+
+}
+li{
+  list-style: none;
+  margin-top: 1rem;
+  padding: 3px 2rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-family: ;
+
+}
+
+
+
+
+.form_section{
+  text-align: center;
+
+}
+
+
+input{
+  width: 70%;
+  font-size: 1.3rem;
+  padding: 7px 13px;
+  transition: all 0.5s linear;
+  font-family: 'Bona Nova', serif;
+
+}
+
+input:focus{
+  border: none;
+  border:1px solid rgb(174, 255, 174);
+  outline: none;
+  padding: 7px 13px;  
+}
+
+.mt{
+  margin-top: 2.3rem;
+}
+.btn{
+  width: 8rem;
+  font-size: 1.5rem;
+  padding:8px 0;
+  cursor: pointer;
+  background-color: rgb(99, 174, 240);
+  border: 1px solid white;
+  color: white;
+}
+
+.btn:hover{
+  background-color: rgb(22, 134, 231);
+}
+
+.error{
+  display: block;
+  margin: 5px auto;
+  color: red;
+  text-align: initial;
+  width: 70%
+  ;
+}
+.radio{
+  width: fit-content;
+  /* margin-right: 4px; */
+}
+.radio_btn{
+  width: 70%;
+  margin: 0 auto;
+  text-align: initial;
+
+}
+
+label>h3{
+  margin-bottom: 7px;
+}
+.gender_error{
+  width: 100%;
+}
+
+.select_block{
+  text-align: initial;
+  margin: 0 auto;
+  width: 70%;
+}
+
+.select_element{
+  font-size: 1.2rem;
+  padding:8px 4px;
+  font-family: 'Bona Nova', serif;
+}
+label>h3{
+  width: 70%;
+  text-transform: uppercase;
+  text-align: initial;
+  margin:2rem auto;
+  margin-bottom: 0.7rem;
+}
+.ml{
+  margin-left: 1rem;
+
+}
+.select_error{
+  width: 100%;
+}
+
+
+/* table{
+border: 1px solid black;
+} */
+table, th, td {
+  border: 1px solid black;
+}
+table {
+  border-collapse: collapse;
+}
+
+table th{
+  padding: 4px;
+}
+
+
+
+
