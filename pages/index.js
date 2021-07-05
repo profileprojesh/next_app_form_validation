@@ -9,15 +9,16 @@ export default function Home() {
   const [num,setNum] = useState(0)
   const [Users, setUsers] = useState([])
   useEffect(()=>{
-    try{
-      getallUser().then(users=>{
-        setUsers(()=>users)
-        setNum(users.length)
+      getallUser().then(res=>{
+        if(res.file == false){
+          setUsers([])
+        }
+        else{
+          setUsers(()=>res)
+          setNum(res.length)
+        }
       })
-    }
-    catch{
-      setUsers([])
-    }
+
   
   },[num])
   console.log('Users are ',Users)

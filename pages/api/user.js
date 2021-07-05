@@ -3,12 +3,11 @@ import { Stream } from 'stream';
 const fs = require('fs')
 const csv = require('fast-csv');
 
-// let users = []
+let filename = 'data.csv'
 
 // to create a csv file by validatiing the given condition
 function createcsv(data) {
     return new Promise((resolve, reject) => {
-        let filename = 'data.csv'
         let newline = '\r\n'
         let first = true
         let val = Object.values(data)
@@ -72,16 +71,16 @@ function createcsv(data) {
 
 
 // function for getting all data from csv file
-function parseuserfromcsv(){
-    return new Promise((resolve,reject)=>{
+function parseuserfromcsv() {
+    return new Promise((resolve, reject) => {
         let users = []
         let stream = fs.createReadStream('data.csv');
-         csv.parseStream(stream, { headers: true })
+        csv.parseStream(stream, { headers: true })
             .on("data", function (value) {
-                console.log("value is",value)
+                console.log("value is", value)
                 users.push(value)
-            }).on("end",()=>{
-            resolve(users)
+            }).on("end", () => {
+                resolve(users)
             })
 
 
@@ -92,6 +91,7 @@ function parseuserfromcsv(){
 
 export default function (req, res) {
     if (req.method == 'POST') {
+        let user = req.body.user
         console.log('Adding user:::', user);
         createcsv(user).then(() => {
             console.log("Pushing users to a array")
@@ -101,7 +101,12 @@ export default function (req, res) {
     }
 
     else if (req.method == 'GET') {
-        parseuserfromcsv().then(ret=>res.json(ret))
+        if (!fs.existsSync(filename)) {
+            res.json({ file: false })
+        }
+        else {
+            parseuserfromcsv().then(ret => res.json(ret))
+        }
     }
 
 }
