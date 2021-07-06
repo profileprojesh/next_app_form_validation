@@ -2,7 +2,7 @@ export async function createUser(data){
     console.log('Inside create user',data)
     const response = await fetch('/api/user', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json','Accept': 'application/json'},
         body: JSON.stringify({user: data})
       })
     return await response.json();

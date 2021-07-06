@@ -43,11 +43,6 @@ function useForm(addError) {
     }
 
 
-// function to set submit to true
-    function setSubmitevent(){
-        setissubmitting(true)
-    }
-
 
     function resetbackend(){
         setvalidbackendemail(true)
@@ -55,17 +50,26 @@ function useForm(addError) {
     }
 
     function checkorCreatenewUser(){
+        console.log("INside createorcheck")
         createUser(values).then((res) => {
-            if (!res.validemail) {
-                setvalidbackendemail(false)
-            }
-            if (!res.validphone) {
-                setvalidbackendphone(false)
-            }
-            else{
+            console.log("Inside check and validate user")
+            if(res.added){
+                console.log("inside user added")
+                getallusers()
                 router.push('/')
             }
+            else{
+                if (!res.validemail) {
+                    console.log("Inside if email check")
+                    setvalidbackendemail(false)
+                }
+                if (!res.validphone) {
+                    console.log("Inside if phone check")
 
+                    setvalidbackendphone(false)
+                }
+
+            }
 
         })
     }
@@ -73,16 +77,23 @@ function useForm(addError) {
 
 
     const handleSubmit = (e) => {
+        console.log("inside submitting ")
         e.preventDefault()
-        setSubmitevent()
-        // setissubmitting(true)
+        console.log("submitting",issubmitting)
+        console.log("submitting",issubmitting)
+        setissubmitting(true)
         let notvalid = isinvalid()
+        console.log(notvalid)
+        console.log(Object.keys(errors).length)
+        console.log(issubmitting)
         resetbackend() // This function is used to reset the backend error to initial state  
-        if (!notvalid && Object.keys(errors).length === 0 && issubmitting) {
+        if (!notvalid && Object.keys(errors).length === 0) {
+            console.log("first submitting event")
             checkorCreatenewUser()
     
         }
         else {
+            console.log("else part submitting event")
             setErrors(addError(values, validbackendemail, validbackendphone))
         }
 
@@ -91,7 +102,10 @@ function useForm(addError) {
 
 
     useEffect(() => {
+        console.log("Inide use effect errors")
         if (issubmitting && Object.keys(errors).length === 0) {
+            console.log("Inide use effect errors if ")
+
            checkorCreatenewUser()
             getallusers()
         }
@@ -100,8 +114,9 @@ function useForm(addError) {
         , [errors])
 
 
-// This is used to set bacend error if there occured
+// This is used to set backend error if there occured
     useEffect(()=>{
+        console.log("Inide use effect backend")
         if(issubmitting){
             setErrors(addError(values,validbackendemail,validbackendphone))
         }

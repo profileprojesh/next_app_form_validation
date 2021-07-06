@@ -95,7 +95,7 @@ export default function (req, res) {
         console.log('Adding user:::', user);
         createcsv(user).then(() => {
             console.log("Pushing users to a array")
-            res.json("New user has been added")
+            res.json({added:true})
         })
             .catch(ret => res.json(ret))
     }
