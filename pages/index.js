@@ -4,23 +4,11 @@ import styles from '../styles/Home.module.css'
 import {useState, useEffect} from 'react'
 import { getallUser } from '../components/services/userservice'
 import HomeComponent from '../components/Homecomponent'
+import { UserContext } from '../userContext'
+import { useContext } from 'react'
 
 export default function Home() {
-  const [num,setNum] = useState(0)
-  const [Users, setUsers] = useState([])
-  useEffect(()=>{
-      getallUser().then(res=>{
-        if(res.file == false){
-          setUsers([])
-        }
-        else{
-          setUsers(()=>res)
-          setNum(res.length)
-        }
-      })
-
-  
-  },[num])
+ const {Users,num} = useContext(UserContext)
   console.log('Users are ',Users)
   return(
 <>

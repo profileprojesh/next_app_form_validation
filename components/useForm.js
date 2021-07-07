@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
-import { createUser, getallUser } from './services/userservice'
+import { createUser } from './services/userservice'
 import {useRouter} from 'next/router'
+import { UserContext } from '../userContext'
+import { useContext } from 'react'
 
 
 function useForm(addError) {
     const router = useRouter()
-    const [num, setNum] = useState(0)
-    const [users, setUsers] = useState([])
+    const {setUsers,setNum} = useContext(UserContext)
     const [validbackendemail, setvalidbackendemail] = useState(true)
     const [validbackendphone, setvalidbackendphone] = useState(true)
     const [values, setValues] = useState({
@@ -55,7 +56,8 @@ function useForm(addError) {
             console.log("Inside check and validate user")
             if(res.added){
                 console.log("inside user added")
-                getallusers()
+                setUsers(users=>[...users,values])
+                setNum(num=>num+1)
                 router.push('/')
             }
             else{
@@ -105,9 +107,7 @@ function useForm(addError) {
         console.log("Inide use effect errors")
         if (issubmitting && Object.keys(errors).length === 0) {
             console.log("Inide use effect errors if ")
-
            checkorCreatenewUser()
-            getallusers()
         }
     }
 
@@ -122,22 +122,8 @@ function useForm(addError) {
         }
     },[validbackendemail,validbackendphone])
 
-
-
-    function getallusers() {
-        getallUser().then(users => {
-            setUsers(users)
-            setNum(users.length)            
-        })
-    }
-
-    // Load the users from backend for the first time dom is loaded
-    useEffect(()=>{
-        getallusers()
-    },[])
-
     return (
-        { values, handleInput, handleSubmit, num, users, getallusers, errors }
+        { values, handleInput, handleSubmit, errors }
     )
 
 }
